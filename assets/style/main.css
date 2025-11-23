@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+
+body {
+  background-color: #000;
+  color: #fdf6e3;
+  margin: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+	& h1 {
+		font-family: 'Roboto Mono', monospace;
+		text-align: center;
+		color: #ffdd44;
+
+		&.main {
+			font-size: 50px;
+			opacity: 0.9;
+			font-weight: 400;
+		}
+
+		&.small {
+			font-size: 15px;
+			opacity: 0.7;
+			font-weight: 200;
+		}
+
+		.cursor {
+			display: inline-block;
+			width: 1px;
+			height: 100%;
+			margin-bottom: -5px;
+			background-color: #ffdd44;
+			animation: blink 1s step-end infinite;
+		}
+	}
+}
+
+#ascii-canvas {
+  font-family: "Courier New", Courier, monospace;
+  font-weight: bold;
+  font-size: 10px;
+  line-height: 10px;
+  white-space: pre;
+  text-align: center;
+  color: #ffdd44;
+  text-shadow: 0 0 8px #ffaa00, 0 0 15px #ff6600;
+}
+
+@keyframes blink {
+	from, to {
+		background-color: transparent;
+	}
+	50% {
+		background-color: #ffdd44;
+	}
+}
