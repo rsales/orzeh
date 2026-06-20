@@ -1,0 +1,30 @@
+{
+  "name": "footer",
+  "display_name": "Footer",
+  "is_root": false,
+  "is_nestable": true,
+  "component_group_name": "Orzeh — Seções",
+  "schema": {
+    "logo": {
+      "type": "asset",
+      "display_name": "Logo (wordmark grande)",
+      "filetypes": ["images"]
+    },
+    "brand_highlight": {
+      "type": "text",
+      "display_name": "Marca (destaque)",
+      "default_value": "Orzeh"
+    },
+    "tagline": {
+      "type": "text",
+      "display_name": "Tagline",
+      "default_value": "- Created by Sales Creations"
+    },
+    "copyright": {
+      "type": "text",
+      "display_name": "Copyright",
+      "description": "Use {year} para o ano dinâmico",
+      "default_value": "© {year}"
+    }
+  }
+}

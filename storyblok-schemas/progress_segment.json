@@ -1,0 +1,23 @@
+{
+  "name": "progress_segment",
+  "display_name": "Progress Segment",
+  "is_root": false,
+  "is_nestable": true,
+  "component_group_name": "Orzeh — Cards",
+  "schema": {
+    "label": {
+      "type": "text",
+      "display_name": "Label",
+      "description": "Ex: Básico, Estilo, Investir"
+    },
+    "percent": {
+      "type": "number",
+      "display_name": "Percentual (largura visual)"
+    },
+    "color": {
+      "type": "text",
+      "display_name": "Cor (hex)",
+      "description": "Ex: #3b82f6"
+    }
+  }
+}

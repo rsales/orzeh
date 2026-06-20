@@ -1,0 +1,27 @@
+{
+  "name": "feature_card",
+  "display_name": "Feature Card",
+  "is_root": false,
+  "is_nestable": true,
+  "component_group_name": "Orzeh — Cards",
+  "schema": {
+    "numeral": {
+      "type": "text",
+      "display_name": "Numeral romano",
+      "description": "Ex: I, II, III"
+    },
+    "title": {
+      "type": "text",
+      "display_name": "Título"
+    },
+    "description": {
+      "type": "textarea",
+      "display_name": "Descrição"
+    },
+    "image": {
+      "type": "asset",
+      "display_name": "Imagem",
+      "filetypes": ["images"]
+    }
+  }
+}

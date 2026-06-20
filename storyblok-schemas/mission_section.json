@@ -1,0 +1,29 @@
+{
+  "name": "mission_section",
+  "display_name": "Mission Section (01)",
+  "is_root": false,
+  "is_nestable": true,
+  "component_group_name": "Orzeh — Seções",
+  "schema": {
+    "eyebrow": {
+      "type": "text",
+      "display_name": "Eyebrow",
+      "default_value": "01 — MISSÃO"
+    },
+    "headline": {
+      "type": "textarea",
+      "display_name": "Título"
+    },
+    "body": {
+      "type": "richtext",
+      "display_name": "Corpo (suporta negrito/itálico)"
+    },
+    "cells": {
+      "type": "bloks",
+      "display_name": "Células do grid",
+      "restrict_components": true,
+      "component_whitelist": ["mission_cell"],
+      "maximum": 4
+    }
+  }
+}

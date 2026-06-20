@@ -1,0 +1,30 @@
+{
+  "name": "navbar",
+  "display_name": "Navbar",
+  "is_root": false,
+  "is_nestable": true,
+  "component_group_name": "Orzeh — Seções",
+  "schema": {
+    "logo": {
+      "type": "asset",
+      "display_name": "Logo",
+      "filetypes": ["images"]
+    },
+    "links": {
+      "type": "bloks",
+      "display_name": "Links de navegação",
+      "restrict_components": true,
+      "component_whitelist": ["nav_link"]
+    },
+    "cta_label": {
+      "type": "text",
+      "display_name": "Texto do botão",
+      "default_value": "Entrar"
+    },
+    "cta_url": {
+      "type": "multilink",
+      "display_name": "Link do botão",
+      "description": "Padrão: https://app.orzeh.com"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "name": "nav_link",
+  "display_name": "Nav Link",
+  "is_root": false,
+  "is_nestable": true,
+  "component_group_name": "Orzeh — Cards",
+  "schema": {
+    "label": {
+      "type": "text",
+      "display_name": "Texto"
+    },
+    "url": {
+      "type": "multilink",
+      "display_name": "Link",
+      "description": "Use um link de âncora, ex: #recursos"
+    }
+  }
+}

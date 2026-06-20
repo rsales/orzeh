@@ -1,0 +1,49 @@
+{
+  "name": "hero",
+  "display_name": "Hero",
+  "is_root": false,
+  "is_nestable": true,
+  "component_group_name": "Orzeh — Seções",
+  "schema": {
+    "badge_highlight": {
+      "type": "text",
+      "display_name": "Badge — destaque",
+      "default_value": "BETA PRIVADO"
+    },
+    "badge_text": {
+      "type": "text",
+      "display_name": "Badge — texto",
+      "default_value": "- SOMENTE POR CONVITE"
+    },
+    "headline": {
+      "type": "textarea",
+      "display_name": "Título principal",
+      "default_value": "Finanças que a família constrói junta!"
+    },
+    "body_highlight": {
+      "type": "text",
+      "display_name": "Corpo — destaque (marca)",
+      "default_value": "Orzeh"
+    },
+    "body_text": {
+      "type": "textarea",
+      "display_name": "Corpo — texto"
+    },
+    "image": {
+      "type": "asset",
+      "display_name": "Imagem principal",
+      "filetypes": ["images"]
+    },
+    "floating_card_label": {
+      "type": "text",
+      "display_name": "Card flutuante — label",
+      "default_value": "REGRA 50 - 30 -10"
+    },
+    "floating_card_segments": {
+      "type": "bloks",
+      "display_name": "Card flutuante — segmentos",
+      "restrict_components": true,
+      "component_whitelist": ["progress_segment"]
+    }
+  }
+}

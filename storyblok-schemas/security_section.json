@@ -1,0 +1,28 @@
+{
+  "name": "security_section",
+  "display_name": "Security Section (04)",
+  "is_root": false,
+  "is_nestable": true,
+  "component_group_name": "Orzeh — Seções",
+  "schema": {
+    "eyebrow": {
+      "type": "text",
+      "display_name": "Eyebrow",
+      "default_value": "04 — SEGURANÇA"
+    },
+    "headline": {
+      "type": "textarea",
+      "display_name": "Título"
+    },
+    "body_text": {
+      "type": "textarea",
+      "display_name": "Corpo"
+    },
+    "cells": {
+      "type": "bloks",
+      "display_name": "Células",
+      "restrict_components": true,
+      "component_whitelist": ["security_cell"]
+    }
+  }
+}

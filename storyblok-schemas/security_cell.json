@@ -1,0 +1,17 @@
+{
+  "name": "security_cell",
+  "display_name": "Security Cell",
+  "is_root": false,
+  "is_nestable": true,
+  "component_group_name": "Orzeh — Cards",
+  "schema": {
+    "title": {
+      "type": "text",
+      "display_name": "Título"
+    },
+    "description": {
+      "type": "textarea",
+      "display_name": "Descrição"
+    }
+  }
+}

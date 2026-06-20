@@ -1,0 +1,28 @@
+{
+  "name": "features_section",
+  "display_name": "Features Section (02)",
+  "is_root": false,
+  "is_nestable": true,
+  "component_group_name": "Orzeh — Seções",
+  "schema": {
+    "eyebrow": {
+      "type": "text",
+      "display_name": "Eyebrow",
+      "default_value": "02 — RECURSOS"
+    },
+    "headline": {
+      "type": "textarea",
+      "display_name": "Título"
+    },
+    "body_text": {
+      "type": "textarea",
+      "display_name": "Corpo"
+    },
+    "cards": {
+      "type": "bloks",
+      "display_name": "Cards",
+      "restrict_components": true,
+      "component_whitelist": ["feature_card"]
+    }
+  }
+}

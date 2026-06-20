@@ -1,0 +1,28 @@
+{
+  "name": "methodology_step",
+  "display_name": "Methodology Step",
+  "is_root": false,
+  "is_nestable": true,
+  "component_group_name": "Orzeh — Cards",
+  "schema": {
+    "index": {
+      "type": "text",
+      "display_name": "Índice",
+      "description": "Ex: 01., 02., 03., 04."
+    },
+    "letter": {
+      "type": "text",
+      "display_name": "Letra",
+      "description": "Ex: P, A, R, D"
+    },
+    "word": {
+      "type": "text",
+      "display_name": "Palavra",
+      "description": "Ex: Perceba, Analise, Reflita, Decida"
+    },
+    "description": {
+      "type": "textarea",
+      "display_name": "Descrição"
+    }
+  }
+}

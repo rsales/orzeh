@@ -1,0 +1,29 @@
+{
+  "name": "methodology_section",
+  "display_name": "Methodology Section (03)",
+  "is_root": false,
+  "is_nestable": true,
+  "component_group_name": "Orzeh — Seções",
+  "schema": {
+    "eyebrow": {
+      "type": "text",
+      "display_name": "Eyebrow",
+      "default_value": "03 — METODOLOGIA"
+    },
+    "headline": {
+      "type": "richtext",
+      "display_name": "Título (suporta itálico no destaque P.A.R.D.)"
+    },
+    "body_text": {
+      "type": "textarea",
+      "display_name": "Corpo"
+    },
+    "steps": {
+      "type": "bloks",
+      "display_name": "Passos",
+      "restrict_components": true,
+      "component_whitelist": ["methodology_step"],
+      "maximum": 4
+    }
+  }
+}
