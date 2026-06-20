@@ -15,7 +15,7 @@ Substitui a versão anterior (HTML/CSS/JS estático no Netlify).
 ```bash
 npm install
 cp .env.example .env
-# preencha STORYBLOK_ACCESS_TOKEN com o Preview Token do seu Space
+# preencha STORYBLOK_DELIVERY_API_TOKEN com o Preview Token do seu Space
 npm run dev
 ```
 
