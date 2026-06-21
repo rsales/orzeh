@@ -3,7 +3,8 @@ import type { SbBlokData } from '@storyblok/vue'
 
 interface ProgressSegmentBlok extends SbBlokData {
   label?: string
-  percent?: number
+  // Campos do tipo "number" no Storyblok são serializados como string pela API.
+  percent?: string
   color?: string
 }
 
