@@ -2,6 +2,7 @@
   "name": "orzeh",
   "type": "module",
   "private": true,
+  "packageManager": "pnpm@10.2.0",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
@@ -19,7 +20,9 @@
     "vue-router": "^5.1.0"
   },
   "devDependencies": {
+    "@nuxt/eslint": "1.9.0",
     "@tailwindcss/vite": "^4.3.1",
+    "eslint": "^9.33.0",
     "tailwindcss": "^4.3.1"
   }
 }

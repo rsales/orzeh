@@ -10,13 +10,31 @@ export default defineNuxtConfig({
 
   devtools: { enabled: true },
 
-  modules: ['@storyblok/nuxt'],
+  // HTTPS local é exigido pelo Visual Editor da Storyblok para o preview ao vivo.
+  // O Nuxt gera um certificado autoassinado automaticamente — nenhum mkcert/openssl manual necessário.
+  devServer: {
+    https: true,
+  },
+
+  modules: [
+    '@storyblok/nuxt',
+    [
+      '@nuxt/eslint',
+      {
+        config: {
+          typescript: {
+            strict: true,
+          },
+        },
+      },
+    ],
+  ],
 
   storyblok: {
     accessToken: process.env.STORYBLOK_DELIVERY_API_TOKEN,
     bridge: process.env.STORYBLOK_VERSION !== 'published',
     apiOptions: {
-      region: 'us',
+      region: process.env.STORYBLOK_REGION || 'eu',
     },
   },
 

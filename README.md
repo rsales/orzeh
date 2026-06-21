@@ -13,10 +13,17 @@ Substitui a versão anterior (HTML/CSS/JS estático no Netlify).
 ## Setup local
 
 ```bash
-npm install
+pnpm install
 cp .env.example .env
 # preencha STORYBLOK_DELIVERY_API_TOKEN com o Preview Token do seu Space
-npm run dev
+pnpm run dev
+```
+
+O servidor sobe automaticamente em **HTTPS** (`https://localhost:3000`), com certificado autoassinado gerado pelo próprio Nuxt — sem precisar de `mkcert` ou OpenSSL manual. Isso é necessário porque o Visual Editor da Storyblok só conecta a projetos servidos via HTTPS. No primeiro acesso, seu navegador vai alertar sobre o certificado não ser confiável; é esperado em ambiente local — clique em "avançar"/"continuar mesmo assim".
+
+```bash
+pnpm run lint       # eslint (Vue + TypeScript)
+pnpm run lint:fix   # corrige automaticamente o que for possível
 ```
 
 ## Configurando o Storyblok (primeira vez)
@@ -70,7 +77,11 @@ Preencha cada campo com o conteúdo (os textos de referência usados no design e
 
 Para usar o editor visual com preview ao vivo, configure em **Settings → Visual Editor**:
 
-- Default environment: `http://localhost:3000/`
+- Default environment: `https://localhost:3000/` (note o **https** — o servidor de dev já sobe nesse protocolo automaticamente)
+
+### Região do Space
+
+O `.env` tem `STORYBLOK_REGION=eu` por padrão, que é a região correta para o Space `293327625493385` (💡 Site Orzeh). Só altere se migrar para outro Space hospedado em outra região (`us`, `cn`, `ap`, `ca`).
 
 ## Conteúdo de referência (copy original do Figma)
 
@@ -110,6 +121,16 @@ Para usar o editor visual com preview ao vivo, configure em **Settings → Visua
 
 </details>
 
+## Relação com o Core Blueprint oficial da Storyblok
+
+Este projeto não usa o [blueprint-core-nuxt](https://github.com/storyblok/blueprint-core-nuxt) diretamente — ele traz blocos genéricos (`page`, `teaser`, `grid`, `feature`) que não correspondem ao design real do Orzeh. Em vez disso, adotamos as práticas recomendadas que o blueprint encapsula:
+
+- ✅ Estrutura `app/` do Nuxt 4 com `useAsyncStoryblok` em `app/pages/index.vue`
+- ✅ Componentes Storyblok em PascalCase, importados automaticamente
+- ✅ **HTTPS local automático** (`devServer.https: true`), exigido pelo Visual Editor — resolvido nativamente pelo Nuxt, sem certificados manuais
+- ✅ `pnpm` como gerenciador de pacotes (padrão usado nos blueprints oficiais)
+- ❌ Não adotamos os blocos genéricos `teaser`/`grid`/`feature` — nossos 14 componentes (`hero`, `mission_section`, `feature_card` etc.) já são fiéis ao design Figma e ao conteúdo real do produto
+
 ## Estrutura do projeto
 
 ```
@@ -125,5 +146,6 @@ storyblok-schemas/          # JSON schemas para importar no Space
 
 Configurado para Netlify (mesmo provedor do repositório anterior). Variáveis de ambiente necessárias no painel do Netlify:
 
-- `STORYBLOK_ACCESS_TOKEN`
+- `STORYBLOK_DELIVERY_API_TOKEN`
+- `STORYBLOK_REGION` (`eu`)
 - `STORYBLOK_VERSION` (`published` em produção)
