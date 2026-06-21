@@ -1,28 +1,32 @@
 {
-  "name": "orzeh",
-  "type": "module",
-  "private": true,
-  "packageManager": "pnpm@10.2.0",
-  "scripts": {
-    "build": "nuxt build",
-    "dev": "nuxt dev",
-    "generate": "nuxt generate",
-    "preview": "nuxt preview",
-    "postinstall": "nuxt prepare",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
-  },
-  "dependencies": {
-    "@storyblok/nuxt": "^11.0.0",
-    "lucide-vue-next": "^1.0.0",
-    "nuxt": "^4.4.8",
-    "vue": "^3.5.35",
-    "vue-router": "^5.1.0"
-  },
-  "devDependencies": {
-    "@nuxt/eslint": "1.9.0",
-    "@tailwindcss/vite": "^4.3.1",
-    "eslint": "^9.33.0",
-    "tailwindcss": "^4.3.1"
-  }
+	"name": "orzeh",
+	"type": "module",
+	"private": true,
+	"packageManager": "pnpm@10.2.0",
+	"scripts": {
+		"build": "nuxt build",
+		"dev": "nuxt dev",
+		"generate": "nuxt generate",
+		"preview": "nuxt preview",
+		"postinstall": "nuxt prepare",
+		"lint": "eslint .",
+		"lint:fix": "eslint . --fix",
+		"typecheck": "vue-tsc --noEmit -p tsconfig.json"
+	},
+	"dependencies": {
+		"@storyblok/nuxt": "^9.0.0",
+		"lucide-vue-next": "^1.0.0",
+		"nuxt": "^4.4.8",
+		"vue": "^3.5.18",
+		"vue-router": "^4.5.1"
+	},
+	"devDependencies": {
+		"@nuxt/eslint": "1.9.0",
+		"@tailwindcss/vite": "^4.3.1",
+		"@types/node": "^22.0.0",
+		"eslint": "^9.33.0",
+		"tailwindcss": "^4.3.1",
+		"vite-plugin-mkcert": "^1.17.8",
+		"vue-tsc": "^3.3.5"
+	}
 }

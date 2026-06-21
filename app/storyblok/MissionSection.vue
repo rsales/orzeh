@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import type { SbBlokData } from '@storyblok/vue'
+import type { SbBlokData, StoryblokRichTextNode } from '@storyblok/vue'
 import { renderRichText } from '@storyblok/vue'
 
-interface MissionSectionBlok extends SbBlokData {
+interface MissionSectionBlok extends Omit<SbBlokData, 'body'> {
   eyebrow?: string
   headline?: string
-  body?: unknown
+  body?: StoryblokRichTextNode<string>
   cells?: SbBlokData[]
 }
 

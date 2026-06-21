@@ -1,13 +1,13 @@
 # orzeh — landing page institucional
 
-Landing page (`orzeh.com`) construída em **Nuxt 4** + **Tailwind CSS v4** + **Storyblok** (Headless CMS).
-Substitui a versão anterior (HTML/CSS/JS estático no Netlify).
+Landing page (`orzeh.com`) construída em **Nuxt 4** + **Tailwind CSS v4** + **Storyblok** (Headless CMS), com base no [Storyblok Core Space Blueprint: Nuxt](https://github.com/storyblok/blueprint-core-nuxt).
 
 ## Stack
 
-- **Nuxt 4** (estrutura `app/`, `compatibilityVersion: 4`)
+- **Nuxt 4** (estrutura `app/`, rota catch-all `app/pages/[...slug].vue`)
+- **@storyblok/nuxt** v9 — CMS headless, conteúdo 100% editável por blocos
 - **Tailwind CSS v4** (via plugin Vite, sem PostCSS)
-- **@storyblok/nuxt** v9+ — CMS headless, conteúdo 100% editável por blocos
+- **vite-plugin-mkcert** — HTTPS local com certificado confiável (exigido pelo Visual Editor)
 - **lucide-vue-next** — ícones
 
 ## Setup local
@@ -15,26 +15,38 @@ Substitui a versão anterior (HTML/CSS/JS estático no Netlify).
 ```bash
 pnpm install
 cp .env.example .env
-# preencha STORYBLOK_DELIVERY_API_TOKEN com o Preview Token do seu Space
+# preencha STORYBLOK_DELIVERY_API_TOKEN com o token do seu Space
 pnpm run dev
 ```
 
-O servidor sobe automaticamente em **HTTPS** (`https://localhost:3000`), com certificado autoassinado gerado pelo próprio Nuxt — sem precisar de `mkcert` ou OpenSSL manual. Isso é necessário porque o Visual Editor da Storyblok só conecta a projetos servidos via HTTPS. No primeiro acesso, seu navegador vai alertar sobre o certificado não ser confiável; é esperado em ambiente local — clique em "avançar"/"continuar mesmo assim".
+O servidor sobe em **HTTPS** (`https://localhost:3000`) via `vite-plugin-mkcert`. Na primeira execução, pode pedir sua senha de admin do sistema para instalar a CA local confiável — é esperado, só acontece uma vez.
 
 ```bash
-pnpm run lint       # eslint (Vue + TypeScript)
-pnpm run lint:fix   # corrige automaticamente o que for possível
+pnpm run lint        # eslint (Vue + TypeScript)
+pnpm run lint:fix    # corrige automaticamente o que for possível
+pnpm run typecheck   # vue-tsc --noEmit
 ```
+
+### Token e versão de conteúdo
+
+A Storyblok tem dois tipos de token de Delivery API:
+
+| Tipo de token | Versão buscada |
+|---|---|
+| **Preview** | rascunho (draft) |
+| **Public** | apenas publicado |
+
+A rota `app/pages/[...slug].vue` busca sempre `version: 'draft'`. Se o seu token for **Public**, troque para `version: 'published'` nesse arquivo.
 
 ## Configurando o Storyblok (primeira vez)
 
 ### 1. Crie o Space
 
-Crie um Space novo em [app.storyblok.com](https://app.storyblok.com). Anote o **Preview Token** (Settings → Access Tokens) e coloque em `.env`.
+Crie um Space em [app.storyblok.com](https://app.storyblok.com). Copie o **token de Delivery API** (Settings → Access Tokens) para o `.env`.
 
 ### 2. Importe os componentes (Block Library)
 
-Os schemas estão em `storyblok-schemas/*.json`. Importe **nessa ordem** (os blocos nestable precisam existir antes dos blocos que os referenciam via `component_whitelist`):
+Os schemas estão em `storyblok-schemas/*.json`. Importe **nessa ordem** (blocos nestable precisam existir antes dos blocos que os referenciam via `component_whitelist`):
 
 1. `nav_link.json`
 2. `progress_segment.json`
@@ -51,7 +63,7 @@ Os schemas estão em `storyblok-schemas/*.json`. Importe **nessa ordem** (os blo
 13. `footer.json`
 14. `page.json` (root content type — importar por último)
 
-**Como importar:** no Storyblok, vá em **Components** → ⓘ (canto superior direito) → **Import from JSON**, ou use a [Storyblok CLI](https://github.com/storyblok/storyblok-cli):
+Via [Storyblok CLI](https://github.com/storyblok/storyblok-cli):
 
 ```bash
 npx storyblok login
@@ -61,27 +73,21 @@ npx storyblok push-components storyblok-schemas/navbar.json --space=<SPACE_ID>
 
 ### 3. Crie a story "home"
 
-Em **Content**, crie uma nova story na raiz chamada `home`, do Content Type `page`. Dentro do campo `body`, adicione os blocos na ordem visual da página:
+Em **Content**, crie uma story na raiz chamada `home`, do Content Type `page`. No campo `body`, adicione os blocos na ordem visual:
 
-1. `navbar`
-2. `hero`
-3. `mission_section`
-4. `features_section`
-5. `methodology_section`
-6. `security_section`
-7. `footer`
+```
+navbar → hero → mission_section → features_section → methodology_section → security_section → footer
+```
 
-Preencha cada campo com o conteúdo (os textos de referência usados no design estão na seção abaixo).
+### 4. Visual Editor (preview ao vivo)
 
-### 4. Visual Editor (opcional)
+A rota `app/pages/[...slug].vue` é **catch-all**: resolve qualquer slug dinamicamente. Configure em **Settings → Visual Editor**:
 
-Para usar o editor visual com preview ao vivo, configure em **Settings → Visual Editor**:
+1. Default environment: `https://localhost:3000/`
 
-- Default environment: `https://localhost:3000/` (note o **https** — o servidor de dev já sobe nesse protocolo automaticamente)
+E na story `home`, em **Config** (ícone de engrenagem):
 
-### Região do Space
-
-O `.env` tem `STORYBLOK_REGION=eu` por padrão, que é a região correta para o Space `293327625493385` (💡 Site Orzeh). Só altere se migrar para outro Space hospedado em outra região (`us`, `cn`, `ap`, `ca`).
+2. Campo **Real path**: `/`
 
 ## Conteúdo de referência (copy original do Figma)
 
@@ -121,48 +127,30 @@ O `.env` tem `STORYBLOK_REGION=eu` por padrão, que é a região correta para o 
 
 </details>
 
-## Relação com o Core Blueprint oficial da Storyblok
-
-Este projeto não usa o [blueprint-core-nuxt](https://github.com/storyblok/blueprint-core-nuxt) diretamente — ele traz blocos genéricos (`page`, `teaser`, `grid`, `feature`) que não correspondem ao design real do Orzeh. Em vez disso, adotamos as práticas recomendadas que o blueprint encapsula:
-
-- ✅ Estrutura `app/` do Nuxt 4 com `useAsyncStoryblok` em `app/pages/index.vue`
-- ✅ Componentes Storyblok em PascalCase, importados automaticamente
-- ✅ **HTTPS local automático** (`devServer.https: true`), exigido pelo Visual Editor — resolvido nativamente pelo Nuxt, sem certificados manuais
-- ✅ `pnpm` como gerenciador de pacotes (padrão usado nos blueprints oficiais)
-- ❌ Não adotamos os blocos genéricos `teaser`/`grid`/`feature` — nossos 14 componentes (`hero`, `mission_section`, `feature_card` etc.) já são fiéis ao design Figma e ao conteúdo real do produto
-
-### Nota: breaking change do `useAsyncStoryblok` na v11
-
-A partir do `@storyblok/nuxt@11`, parâmetros de API (`version`, `resolve_relations`, etc.) precisam ir dentro de um objeto `api`, não na raiz das options:
-
-```ts
-// ❌ Quebra com "Cannot read properties of undefined (reading 'resolve_relations')"
-useAsyncStoryblok('home', { version: 'draft' })
-
-// ✅ Correto na v11
-useAsyncStoryblok('home', { api: { version: 'draft' } })
-```
-
-Já corrigido em `app/pages/index.vue`.
-
 ## Estrutura do projeto
 
 ```
 app/
 ├── storyblok/              # Um componente Vue por bloco Storyblok (componentsDir padrão do módulo)
-├── components/ui/          # Reservado para componentes não-Storyblok (ex: shadcn-vue), se necessário
-├── pages/index.vue         # Busca a story "home" e renderiza
+├── plugins/
+│   └── storyblok-components.ts  # Registra manualmente blocos com "_" no nome (ver nota abaixo)
+├── pages/[...slug].vue     # Rota catch-all: busca a story pelo slug
+├── layouts/default.vue     # Layout raiz (mínimo)
 ├── assets/css/main.css     # Tokens de design (cores, fontes, radius)
-└── app.vue
 storyblok-schemas/          # JSON schemas para importar no Space
 ```
 
-> **Nota:** `@storyblok/nuxt` usa `~/storyblok` (→ `app/storyblok/`) como diretório padrão de componentes, não `~/components/storyblok`. Os arquivos aqui já seguem essa convenção oficial.
+### Nota: blocos com "_" no nome precisam de registro manual
+
+O `StoryblokComponent` resolve o nome do bloco usando o valor **exato** de `blok.component` primeiro (ex: `mission_section`), e só tenta a conversão para `kebab-case` como fallback. O algoritmo de resolução nativo do Vue entende `PascalCase` ↔ `kebab-case` automaticamente, mas **não** entende `snake_case` como equivalente — então um arquivo `MissionSection.vue` nunca casa automaticamente com um bloco chamado `mission_section`.
+
+Por isso, `app/plugins/storyblok-components.ts` registra explicitamente (via `app.component(...)`) todo bloco cujo nome técnico tem `_`: `mission_section`, `mission_cell`, `features_section`, `feature_card`, `methodology_section`, `methodology_step`, `security_section`, `security_cell`. Blocos sem `_` (`navbar`, `hero`, `footer`, `page`) continuam resolvendo via auto-import normal, sem precisar de entrada nesse plugin.
+
+**Se criar um novo bloco no Storyblok com `_` no nome**, adicione o import e o `app.component(...)` correspondente nesse plugin — caso contrário, vai aparecer o erro `Component could not be found for blok "..."` no console, mesmo com o arquivo `.vue` existindo corretamente em `app/storyblok/`.
 
 ## Deploy
 
-Configurado para Netlify (mesmo provedor do repositório anterior). Variáveis de ambiente necessárias no painel do Netlify:
+Variáveis de ambiente necessárias no provedor de deploy (Netlify):
 
 - `STORYBLOK_DELIVERY_API_TOKEN`
 - `STORYBLOK_REGION` (`eu`)
-- `STORYBLOK_VERSION` (`published` em produção)
