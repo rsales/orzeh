@@ -2,7 +2,9 @@
 const config = useRuntimeConfig()
 
 const { data: story } = await useAsyncStoryblok('home', {
-  version: config.public.storyblokVersion as 'draft' | 'published',
+  api: {
+    version: config.public.storyblokVersion as 'draft' | 'published',
+  },
 })
 </script>
 

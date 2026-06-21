@@ -131,16 +131,33 @@ Este projeto não usa o [blueprint-core-nuxt](https://github.com/storyblok/bluep
 - ✅ `pnpm` como gerenciador de pacotes (padrão usado nos blueprints oficiais)
 - ❌ Não adotamos os blocos genéricos `teaser`/`grid`/`feature` — nossos 14 componentes (`hero`, `mission_section`, `feature_card` etc.) já são fiéis ao design Figma e ao conteúdo real do produto
 
+### Nota: breaking change do `useAsyncStoryblok` na v11
+
+A partir do `@storyblok/nuxt@11`, parâmetros de API (`version`, `resolve_relations`, etc.) precisam ir dentro de um objeto `api`, não na raiz das options:
+
+```ts
+// ❌ Quebra com "Cannot read properties of undefined (reading 'resolve_relations')"
+useAsyncStoryblok('home', { version: 'draft' })
+
+// ✅ Correto na v11
+useAsyncStoryblok('home', { api: { version: 'draft' } })
+```
+
+Já corrigido em `app/pages/index.vue`.
+
 ## Estrutura do projeto
 
 ```
 app/
-├── components/storyblok/   # Um componente Vue por bloco Storyblok
+├── storyblok/              # Um componente Vue por bloco Storyblok (componentsDir padrão do módulo)
+├── components/ui/          # Reservado para componentes não-Storyblok (ex: shadcn-vue), se necessário
 ├── pages/index.vue         # Busca a story "home" e renderiza
 ├── assets/css/main.css     # Tokens de design (cores, fontes, radius)
 └── app.vue
 storyblok-schemas/          # JSON schemas para importar no Space
 ```
+
+> **Nota:** `@storyblok/nuxt` usa `~/storyblok` (→ `app/storyblok/`) como diretório padrão de componentes, não `~/components/storyblok`. Os arquivos aqui já seguem essa convenção oficial.
 
 ## Deploy
 
