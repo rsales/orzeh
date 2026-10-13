@@ -46,3 +46,7 @@ Netlify builds `main`. Set `STORYBLOK_DELIVERY_API_TOKEN` and
 Read [`AGENTS.md`](AGENTS.md) (conventions and Storyblok gotchas, for people and
 coding agents) and pass the gate in [`CONTRIBUTING.md`](CONTRIBUTING.md).
 Details: [architecture](docs/ARCHITECTURE.md).
+
+## License
+
+Proprietary. All rights reserved; see [`LICENSE`](LICENSE). Author: Rafael Sales.
